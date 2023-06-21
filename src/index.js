@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
 import {
   createBrowserRouter,
   RouterProvider
@@ -8,8 +8,9 @@ import {
 import { ThemeProvider, createTheme } from "@mui/material"
 import { teal, cyan } from "@mui/material/colors"
 
+import TemplatePage from './templates/Page'
 import Home from './pages/Home'
-import Customers from './pages/Customers';
+import Customers from './pages/Customers'
 import "./index.css"
 
 const theme = createTheme({
@@ -30,11 +31,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />
+        element: <TemplatePage title="Página Inicial" Component={Home} />
       },
       {
         path: "/customers",
-        element: <Customers />
+        element: <TemplatePage title="Clientes" Component={Customers} />
       }
     ]
   }

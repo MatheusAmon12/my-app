@@ -1,4 +1,5 @@
-import classNames from 'classnames'//método para adicionar várias classes simultâneas
+//método para adicionar várias classes simultâneas
+import classNames from 'classnames'
 
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
