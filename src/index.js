@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Home from './pages/Home'
-import "./index.css"
 import App from './App';
 import {
   createBrowserRouter,
@@ -9,6 +7,10 @@ import {
 } from "react-router-dom"
 import { ThemeProvider, createTheme } from "@mui/material"
 import { teal, cyan } from "@mui/material/colors"
+
+import Home from './pages/Home'
+import Customers from './pages/Customers';
+import "./index.css"
 
 const theme = createTheme({
   palette: {
@@ -29,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />
+      },
+      {
+        path: "/customers",
+        element: <Customers />
       }
     ]
   }
@@ -39,6 +45,6 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <RouterProvider router={router}/>
-    </ThemeProvider>
+    </ThemeProvider> 
   </React.StrictMode>
 );
