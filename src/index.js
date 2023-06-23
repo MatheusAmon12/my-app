@@ -31,6 +31,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        //Fazendo uso do template dedicado às páginas
         element: <TemplatePage title="Página Inicial" Component={Home} />
       },
       {
