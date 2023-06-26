@@ -14,6 +14,7 @@ import {
     List,
 } from '@mui/material'
 import { Home, PersonAdd } from '@mui/icons-material'
+import PersonIcon from '@mui/icons-material/Person';
 import MenuIcon from '@mui/icons-material/Menu'
 import useStyles from './Header.style' //importações de css por último
 
@@ -67,10 +68,19 @@ const Header = () => {
 
             <ListItemButton onClick={() => handleClick('/customers')}>
               <ListItemIcon>
+                <PersonIcon />
+              </ListItemIcon>
+              <ListItemText>
+                Lista de Clientes
+              </ListItemText>
+            </ListItemButton>
+
+            <ListItemButton onClick={() => handleClick('/')}>
+              <ListItemIcon>
                 <PersonAdd />
               </ListItemIcon>
               <ListItemText>
-                Cadastro de Clientes
+                cadastro de Clientes
               </ListItemText>
             </ListItemButton>
           </List>
