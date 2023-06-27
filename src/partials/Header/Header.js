@@ -75,12 +75,12 @@ const Header = () => {
               </ListItemText>
             </ListItemButton>
 
-            <ListItemButton onClick={() => handleClick('/')}>
+            <ListItemButton onClick={() => handleClick('/customers/add')}>
               <ListItemIcon>
                 <PersonAdd />
               </ListItemIcon>
               <ListItemText>
-                cadastro de Clientes
+                Cadastro de Clientes
               </ListItemText>
             </ListItemButton>
           </List>

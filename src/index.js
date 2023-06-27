@@ -10,7 +10,8 @@ import { teal, cyan } from "@mui/material/colors"
 
 import TemplatePage from './templates/Page'
 import Home from './pages/Home'
-import Customers from './pages/Customers'
+import CustomersList from './pages/customers/List'
+import CustomersRegister from './pages/customers/Register'
 import "./index.css"
 
 const theme = createTheme({
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/customers",
-        element: <TemplatePage title="Clientes" Component={Customers} />
+        element: <TemplatePage title="Lista de Clientes" Component={CustomersList} />
+      },
+      {
+        path: "/customers/add",
+        element: <TemplatePage title="Cadastro de Clientes" Component={CustomersRegister} />
       }
     ]
   }

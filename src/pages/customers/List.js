@@ -3,7 +3,7 @@ import axios from "axios"
 import Grid from '@mui/material/Grid'
 import { makeStyles } from "tss-react/mui"
 
-import CustomerCard from "../components/CustomerCard"
+import CustomerCard from "../../components/CustomerCard"
 
 const endPoint = 'https://reqres.in/api/users'
 
@@ -14,7 +14,7 @@ const useStyles = makeStyles()((theme) => ({
 }))
 
 
-const Customers = () => {
+const List = () => {
     const [customers, setCustomers] = useState([])
     const { classes } = useStyles()
     
@@ -56,4 +56,4 @@ const handleRemoveCustomer = (id) => {
     )
 }
 
-export default Customers
+export default List
