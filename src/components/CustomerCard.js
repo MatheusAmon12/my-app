@@ -23,18 +23,25 @@ const CustomerCard = ({
   avatar,
   className,
   onRemoveCustomer,
+  onEditCustomer,
 }) => {
 
   const[openModal, setOpenModal] = useState(false)
   const handleToggleOpenModal = () => {
     setOpenModal(!openModal)
   }
+
   const handleConfirmModal = (id) => {
     onRemoveCustomer(id)
     handleToggleOpenModal()
   }
+
   const handleRemoveCustomer = () => {
     handleToggleOpenModal()
+  }
+
+  const handleEditCustomer = (id) => {
+    onEditCustomer(id)
   }
 
   return (
@@ -53,7 +60,7 @@ const CustomerCard = ({
           <IconButton aria-label="remover cadastro" onClick={handleRemoveCustomer}>
             <DeleteIcon />
           </IconButton>
-          <IconButton aria-label="editar cadastro">
+          <IconButton aria-label="editar cadastro" onClick={() => handleEditCustomer(id)}>
             <EditIcon />
           </IconButton>
         </CardActions>

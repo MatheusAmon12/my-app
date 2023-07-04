@@ -12,6 +12,7 @@ import TemplatePage from './templates/Page'
 import Home from './pages/Home'
 import CustomersList from './pages/customers/List'
 import CustomersRegister from './pages/customers/Register'
+import CustomersEdit from './pages/customers/Edit'
 import "./index.css"
 
 const theme = createTheme({
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/customers/add",
         element: <TemplatePage title="Cadastro de Clientes" Component={CustomersRegister} />
+      },
+      {
+        path: "/customers/edit/:id",
+        element: <TemplatePage title="Editar Clientes" Component={CustomersEdit} />
       }
     ]
   }

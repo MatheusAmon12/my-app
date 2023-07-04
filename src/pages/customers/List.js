@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import Grid from '@mui/material/Grid'
 import { makeStyles } from "tss-react/mui"
+import { useNavigate } from "react-router-dom"
 
 import CustomerCard from "../../components/CustomerCard"
 
@@ -17,6 +18,7 @@ const useStyles = makeStyles()((theme) => ({
 const List = () => {
     const [customers, setCustomers] = useState([])
     const { classes } = useStyles()
+    const redirect = useNavigate()
     
     useEffect(() => {
         axios.get(endPoint)
@@ -27,14 +29,18 @@ const List = () => {
         })
     }, [])
     
-const handleRemoveCustomer = (id) => {
-    axios.delete(endPoint + `/${id}`)
-        .then(() => {
-            const newCustomers = customers.filter(client => client.id !== id)
+    const handleRemoveCustomer = (id) => {
+        axios.delete(endPoint + `/${id}`)
+            .then(() => {
+                const newCustomers = customers.filter(client => client.id !== id)
 
-            setCustomers(newCustomers)
-        })
-}
+                setCustomers(newCustomers)
+            })
+    }
+
+    const handleEditCustomer = id => {
+        redirect(`/customers/edit/${id}`)
+    }
     return(
         <Grid container>
             {
@@ -48,6 +54,7 @@ const handleRemoveCustomer = (id) => {
                             avatar={client.avatar}
                             className={classes.card}
                             onRemoveCustomer={handleRemoveCustomer}
+                            onEditCustomer={handleEditCustomer}
                         />
                     </Grid>
                 ))

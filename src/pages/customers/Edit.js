@@ -1,6 +1,7 @@
 import { makeStyles } from "tss-react/mui"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
+import { useParams } from "react-router-dom"
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material'
 
@@ -14,9 +15,12 @@ const useStyle = makeStyles()((theme) => ({
 
 
 
-const Register = () => {
+const Edit = () => {
     const { classes } = useStyle()
-
+    const { id } = useParams()
+    
+    const [openToasty, setOpenToasty] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const [form, setForm] = useState({
         name: {
             value: '',
@@ -27,20 +31,24 @@ const Register = () => {
             error: false,
         },
     })
+    
+    useEffect(() => {
+        axios.get(`https://reqres.in/api/users/${id}`)
+            .then(response => {
+                const { data } = response.data
 
-    //Utilizando esta forma de validação o processo fica mais complexo. Então posso aproveitar o estado do formulário acima para utilizar destas propriedades.
-    /*
-    const [error, setError] = useState({
-        name: {
-            error: false,
-            helperText: ''
-        },
-        job: false,
-    })
-    */
-
-    const [openToasty, setOpenToasty] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
+                setForm({
+                    name: {
+                        value: data.first_name,
+                        error: false,
+                    },
+                    job: {
+                        value: '',
+                        error: false,
+                    },
+                })
+            })
+    }, [])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target
@@ -54,31 +62,7 @@ const Register = () => {
         })
     }
 
-    const handleRegisterButton = () => {
-        //Toda função de atualizar estado é assíncrona. Por isso este trecho de código não funciona corretamente. Pois enquanto um pode ter alterado o estado, o outro não. Então o resultado da verificação acaba não sendo correto.
-        /*
-        if (!form.name.value){
-            setForm({
-                ...form,
-                name:{
-                    ...form.name,
-                    error: true,
-                }
-            })
-        }
-
-        if (!form.job.value){
-            setForm({
-                ...form,
-                job:{
-                    ...form.job,
-                    error: true,
-                }
-            })
-        }
-        */
-
-        //Para resolver o problema do assíncronismo é preciso chamar o setForm uma única vez. Por isso criei uma variável que contém todos os dados do form
+    const handleEditButton = () => {
         setIsLoading(true)
         let hasError = false
 
@@ -86,7 +70,6 @@ const Register = () => {
             ...form,
         }
 
-        //Atualizando o newFormState
         if (!form.name.value){
             hasError = true
 
@@ -107,16 +90,11 @@ const Register = () => {
             }
         }
 
-        //Para garantir que só irá atualizar o estado do form quando houver erro é preciso criar uma flag para controlar isso
-
         if (hasError){
-
-            //uma boa prática é fazer o retorno do setForm e realizar o Axios abaixo, pois se não houver error o interpretador já sai da função e não faz request da API
-
             return setForm(newFormState)
         }
 
-        axios.post('https://reqres.in/api/users', {
+        axios.put(`https://reqres.in/api/users/${id}`, {
             name: form.name.value,
             job: form.job.value,
         })
@@ -154,21 +132,21 @@ const Register = () => {
                     color='primary' 
                     variant='contained'
                     disabled={isLoading} 
-                    onClick={handleRegisterButton}
+                    onClick={handleEditButton}
                 >
                     {
-                        isLoading ? 'Cadastrando' : 'Cadastrar'
+                        isLoading ? 'Salvando' : 'Salvar'
                     }
                 </Button>
             </div>
             <Toasty 
                 open={openToasty} 
                 severity="success" 
-                message="Cadastro realizado com sucesso"
+                message="Cadastro atualizado com sucesso"
                 onClose={() => setOpenToasty(false)}
             />
         </>
     )
 }
 
-export default Register
+export default Edit
