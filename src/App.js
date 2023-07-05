@@ -1,12 +1,12 @@
-import { Outlet } from "react-router-dom" 
-
-import TemplateDefault from "./templates/Default"
+import { Outlet } from 'react-router-dom'
+import { AuthProvider } from './state/auth'
 
 const App = () => {
   return (
-    <TemplateDefault>
+    //Ao envolver a aplicação com o componente AuthProvider estou definindo que toda aplicação tenha acesso ao estado criado com o useAuth
+    <AuthProvider>
       <Outlet />
-    </TemplateDefault>
+    </AuthProvider>
   )
 }
 

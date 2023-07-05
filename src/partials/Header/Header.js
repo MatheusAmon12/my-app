@@ -19,7 +19,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import useStyles from './Header.style' //importações de css por último
 
 
-const Header = () => {
+const Header = ({ user }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const { classes } = useStyles()
   const redirect = useNavigate()
@@ -31,6 +31,10 @@ const Header = () => {
   const handleClick = (url) => {
     redirect(url)
     handleToggleMenu()
+  }
+
+  const handleOnClickLogin = (url) => {
+    redirect(url)
   }
 
     return(
@@ -51,7 +55,11 @@ const Header = () => {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 My App 
               </Typography>
-              <Button color="inherit">Login</Button>
+              {
+                user.logged
+                  ? <Typography variant='h6'>{user.email}</Typography>
+                  : <Button color="inherit" onClick={() => handleOnClickLogin('/login')}>Login</Button>
+              }
             </Toolbar>
           </AppBar>
         </Box>

@@ -4,16 +4,19 @@ import App from './App'
 import {
   createBrowserRouter,
   RouterProvider
-} from "react-router-dom"
-import { ThemeProvider, createTheme } from "@mui/material"
-import { teal, cyan } from "@mui/material/colors"
+} from 'react-router-dom'
+import { ThemeProvider, createTheme } from '@mui/material'
+import { teal, cyan } from '@mui/material/colors'
 
+import TemplateDefault from './templates/Default'
 import TemplatePage from './templates/Page'
+import TemplateClean from './templates/Clean'
 import Home from './pages/Home'
 import CustomersList from './pages/customers/List'
 import CustomersRegister from './pages/customers/Register'
 import CustomersEdit from './pages/customers/Edit'
-import "./index.css"
+import Login from './pages/Login'
+import './index.css'
 
 const theme = createTheme({
   palette: {
@@ -28,25 +31,39 @@ const theme = createTheme({
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     children: [
       {
-        path: "/",
+        path: '/',
         //Fazendo uso do template dedicado às páginas
-        element: <TemplatePage title="Página Inicial" Component={Home} />
+        element: <TemplateDefault>
+                  <TemplatePage title='Página Inicial' Component={Home} />
+                 </TemplateDefault>,
       },
       {
-        path: "/customers",
-        element: <TemplatePage title="Lista de Clientes" Component={CustomersList} />
+        path: '/customers',
+        element: <TemplateDefault>
+                    <TemplatePage title='Lista de Clientes' Component={CustomersList} />
+                 </TemplateDefault>
       },
       {
-        path: "/customers/add",
-        element: <TemplatePage title="Cadastro de Clientes" Component={CustomersRegister} />
+        path: '/customers/add',
+        element: <TemplateDefault>
+                    <TemplatePage title='Cadastro de Clientes' Component={CustomersRegister} />
+                 </TemplateDefault>
       },
       {
-        path: "/customers/edit/:id",
-        element: <TemplatePage title="Editar Clientes" Component={CustomersEdit} />
+        path: '/customers/edit/:id',
+        element: <TemplateDefault>
+                    <TemplatePage title='Editar Clientes' Component={CustomersEdit} />
+                 </TemplateDefault>
+      },
+      {
+        path: '/login',
+        element: <TemplateClean>
+                    <TemplatePage title='Acesso Restrito' Component={Login} />
+                 </TemplateClean>
       }
     ]
   }
